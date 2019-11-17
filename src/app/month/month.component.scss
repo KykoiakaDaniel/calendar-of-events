@@ -1,0 +1,30 @@
+.calendar {
+    width: 100%;            
+}
+
+.calendar-cell {
+    text-align: center;
+    padding: 0.5vw 0;
+}
+
+.weekday {
+    color: #cacaca;
+}
+
+.calendar-day {
+    -webkit-transition: background-color 100ms linear, color 100ms linear;
+    -ms-transition: background-color 100ms linear, color 100ms linear;
+    transition: background-color 100ms linear, color 100ms linear;
+}
+
+@media (min-width: 1000px) {
+    button {
+        font-size: 1.05em;
+    }
+}
+
+@media (min-width: 1200px) {
+    button {
+        font-size: 1.08em;
+    }
+}

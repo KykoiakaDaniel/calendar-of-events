@@ -1,0 +1,39 @@
+<table class="calendar">
+    <tr>
+        <th>
+            <button mat-icon-button (click)="changeMonth(-1)">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+        </th>
+        <th colspan=5>{{monthNames[openDate.month - 1]}} {{openDate.year}}</th>
+        <th>
+            <button mat-icon-button (click)="changeMonth(1)">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </th>
+    </tr>
+    <tr class="weekday">
+        <th *ngFor="let weekdays of dayNames">{{weekdays | slice:0:3}}</th>
+    </tr>
+    <tr *ngFor="let row of calendar">
+        <td class="calendar-cell" *ngFor="let col of row">
+            <div *ngIf="col">
+                <button mat-icon-button 
+                        [style.backgroundColor]="isToday(col) ? 'purple' : isEvent(col) ? 'red' : null"
+                        [style.color]="isToday(col) ? 'yellow' : null"
+                        class="calendar-day"
+                        (click)="selectDay(col)">
+                    <span>{{col}}</span>
+                </button>
+            </div>
+        </td>
+    </tr>
+</table>
+<div *ngFor="let event of events">
+    {{event.date}}
+    {{event.time}}
+    {{event.title}}
+    {{event.description}}
+    {{event.type}}
+</div>
+<button mat-raised-button color="primary" (click)="openDialog()">Добавить событие2</button>

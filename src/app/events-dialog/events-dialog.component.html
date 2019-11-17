@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Событие</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input name="titlee" [(ngModel)]="title" matInput placeholder="Название"> 
+    </mat-form-field>
+    <div class="error" *ngIf="title.length < 2 || title.length > 10">Поле должно содержать от 2 до 10 символов</div>
+    <mat-form-field>
+        <mat-select [(ngModel)]="type" placeholder="Тип события">
+            <mat-option value="Праздник">Праздник</mat-option>
+            <mat-option value="Пsdv">Пsdv</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div class="error" *ngIf="type.length == 0">Выберите тип события</div>
+    <mat-form-field>
+        <input [(ngModel)]="description" matInput placeholder="Описание">
+    </mat-form-field>
+    <mat-form-field>
+        <input [(ngModel)]="date" matInput #dp2 [matDatepicker]="dp3" placeholder="Дата" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <div class="error" *ngIf="date.length == 0">Выберите дату</div>
+    <mat-form-field>
+        <input [(ngModel)]="time" type="time" matInput placeholder="Время">
+    </mat-form-field>
+    <div class="error" *ngIf="time.length == 0">Выберите время</div>
+    <div class="error" *ngIf="error">Выбранное время и дата заняты</div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Отмена</button>
+    <button mat-button (click)="onAddClick()">Добавить</button>
+</div>
