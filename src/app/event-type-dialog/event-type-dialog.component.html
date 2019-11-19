@@ -3,29 +3,19 @@
 </button>
 <mat-list>
     <h3 mat-subheader>Типы событий</h3>
-    <mat-list-item>
+    <mat-list-item *ngFor="let type of types">
         <mat-icon mat-list-icon>event_note</mat-icon>
-        <input type="color" value="#ff0000">
-        <p mat-line>Праздник</p>
+        <input type="color" [(ngModel)]="type.color" (ngModelChange)="onColorChange(type.type, type.color)">
+        <p mat-line>{{type.type}}</p>
+        <mat-divider></mat-divider>
     </mat-list-item>
-    <mat-divider></mat-divider>
     <mat-list-item>
-        <mat-icon mat-list-icon>remove_circle</mat-icon>
-        <input type="color">
-        <p mat-line>Личное</p>
+        <button mat-icon-button (click)="onAddClick()"><mat-icon mat-list-icon>add_circle</mat-icon></button>
+        <input matInput placeholder="Новый тип" [(ngModel)]="newType">
+        <input type="color" [(ngModel)]="newColor">
     </mat-list-item>
     <mat-divider></mat-divider>
-    <mat-list-item>
-        <mat-icon mat-list-icon>remove_circle</mat-icon>
-        <input type="color">
-        <p mat-line>Напоминание</p>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>
-        <mat-icon mat-list-icon>add_circle</mat-icon>
-        <input matInput placeholder="Новый тип">
-        <input type="color">
-    </mat-list-item>
-    <mat-divider></mat-divider>
+    <div class="error" *ngIf="errorCount">Название события должно содержать от 1 до 15 символов</div>
+    <div class="error" *ngIf="errorExistence">Такое событие уже существует</div>
 </mat-list>
-<mat-form-field style="display: none;"> </mat-form-field>
+<mat-form-field style="display: none;"><input matInput placeholder="Новый тип"> </mat-form-field>

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Input} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EventDataService } from '../services/event-data.service';
 import {Event} from '../classes/event';
+import { Type } from '../classes/type';
 
 @Component({
   selector: 'app-events-dialog',
@@ -16,6 +17,7 @@ export class EventsDialogComponent implements OnInit {
   public date: string = this.data.date || "";
   public time: string = this.data.time || "";
   private events: Event[] = [];
+  private types: Type[] = [];
   private error: boolean;
 
   constructor(private eventDataService: EventDataService, 
@@ -24,6 +26,7 @@ export class EventsDialogComponent implements OnInit {
 
   ngOnInit() {
     this.events = this.eventDataService.getDataEvent();
+    this.types = this.eventDataService.getDataType();
   }
 
 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {EventDataService} from '../services/event-data.service';
-import {MatDialog} from '@angular/material/dialog';
+import { EventDataService } from '../services/event-data.service';
+import { MatDialog } from '@angular/material/dialog';
 import { EventsDialogComponent } from '../events-dialog/events-dialog.component';
 import { EventTypeDialogComponent } from '../event-type-dialog/event-type-dialog.component';
-import {Event} from '../classes/event';
+import { Event } from '../classes/event';
+import { Type } from '../classes/type';
 
 export interface CurrentDate {
   date: number;
@@ -18,22 +19,24 @@ export interface CurrentDate {
 })
 export class MonthComponent implements OnInit {
 
-  public readonly dayNames = ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"];
+  public readonly dayNames = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
   public readonly monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
   public calendar: any[][] = [[]];
   public todayDate: CurrentDate;
   public selectedDate: CurrentDate;
   public openDate: CurrentDate;
   private events: Event[] = [];
-  constructor(private eventDataService: EventDataService, public dialog: MatDialog) { 
+  private types: Type[] = [];
+  constructor(private eventDataService: EventDataService, public dialog: MatDialog) {
     this.calendar = [];
     this.todayDate = MonthComponent.getToday();
-    this.openDate = {...this.todayDate};
-    this.selectedDate = {...this.todayDate};
+    this.openDate = { ...this.todayDate };
+    this.selectedDate = { ...this.todayDate };
   }
 
   ngOnInit() {
     this.events = this.eventDataService.getDataEvent();
+    this.types = this.eventDataService.getDataType();
     this.displayCalendar();
   }
 
@@ -45,7 +48,7 @@ export class MonthComponent implements OnInit {
       year: dateNow.getFullYear()
     };
   }
-  
+
   public displayCalendar() {
     const newCalendar = [[]];
     const month = this.openDate.month;
@@ -56,11 +59,11 @@ export class MonthComponent implements OnInit {
     let row = 0, counter = 1;
 
     while (counter <= numOfDays) {
-       if (col > 6) {
-           col = 0;
-           newCalendar[++row] = [];
-       }
-       newCalendar[row][col++] = counter++;
+      if (col > 6) {
+        col = 0;
+        newCalendar[++row] = [];
+      }
+      newCalendar[row][col++] = counter++;
     }
     this.calendar = newCalendar;
   }
@@ -77,37 +80,37 @@ export class MonthComponent implements OnInit {
     this.selectedDate.date = day;
     this.selectedDate.month = this.openDate.month;
     this.selectedDate.year = this.openDate.year;
-    //this.change.emit(this.selectedDate);
   }
 
   public changeMonth(diff: number) {
     this.openDate.month += diff;
 
-    if (this.openDate.month > 12 ) {
+    if (this.openDate.month > 12) {
       this.openDate.month = 1;
       this.openDate.year++;
     }
 
-    if (this.openDate.month < 1 ) {
+    if (this.openDate.month < 1) {
       this.openDate.month = 12;
       this.openDate.year--;
     }
-    
+
     this.displayCalendar();
-    //this.monthChange.emit(this.openPage);
   }
 
   public isToday(day: number): boolean {
-    return (day === this.todayDate.date && this.openDate.month === this.todayDate.month && this.openDate.year === this.todayDate.year) ;
+    return (day === this.todayDate.date && this.openDate.month === this.todayDate.month && this.openDate.year === this.todayDate.year);
   }
 
-  public isEvent(day: number): boolean {
+  public isEvent(day: number): string {
     let newMonth: string = (this.openDate.month < 10) ? `0${this.openDate.month}` : `${this.openDate.month}`;
     let newDay: string = (day < 10) ? `0${day}` : `${day}`;
-    if(this.events.find(item => item.date == `${this.openDate.year}-${newMonth}-${newDay}`)){
-      return true;
+    let indexEvent = this.events.findIndex(item => item.date == `${this.openDate.year}-${newMonth}-${newDay}`);
+    if (indexEvent >= 0) {
+      let indexColor = this.types.findIndex(item => item.type == this.events[indexEvent].type);
+      return this.types[indexColor].color;
     }
-    return false;
+    return null;
   }
 
   public openEventDialog() {

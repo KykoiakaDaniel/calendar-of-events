@@ -18,7 +18,7 @@
     <tr *ngFor="let row of calendar">
         <td class="calendar-cell" *ngFor="let col of row">
             <div *ngIf="col">
-                <button mat-icon-button [style.backgroundColor]="isToday(col) ? '#5c007a' : isEvent(col) ? 'red' : null"
+                <button mat-icon-button [style.backgroundColor]="isToday(col) ? '#5c007a' : isEvent(col)"
                     [style.color]="isToday(col) ? 'white' : null" class="calendar-day" (click)="selectDay(col)">
                     <span>{{col}}</span>
                 </button>

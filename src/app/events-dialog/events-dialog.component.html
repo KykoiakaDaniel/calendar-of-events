@@ -6,8 +6,7 @@
     <div class="error" *ngIf="title.length < 2 || title.length > 10">Поле должно содержать от 2 до 10 символов</div>
     <mat-form-field>
         <mat-select [(ngModel)]="type" placeholder="Тип события">
-            <mat-option value="Праздник">Праздник</mat-option>
-            <mat-option value="Пsdv">Пsdv</mat-option>
+            <mat-option *ngFor="let typeEvent of types" [value]="typeEvent.type">{{typeEvent.type}}</mat-option>
         </mat-select>
     </mat-form-field>
     <div class="error" *ngIf="type.length == 0">Выберите тип события</div>
