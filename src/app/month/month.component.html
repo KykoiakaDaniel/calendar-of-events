@@ -18,11 +18,8 @@
     <tr *ngFor="let row of calendar">
         <td class="calendar-cell" *ngFor="let col of row">
             <div *ngIf="col">
-                <button mat-icon-button 
-                        [style.backgroundColor]="isToday(col) ? 'purple' : isEvent(col) ? 'red' : null"
-                        [style.color]="isToday(col) ? 'yellow' : null"
-                        class="calendar-day"
-                        (click)="selectDay(col)">
+                <button mat-icon-button [style.backgroundColor]="isToday(col) ? '#5c007a' : isEvent(col) ? 'red' : null"
+                    [style.color]="isToday(col) ? 'white' : null" class="calendar-day" (click)="selectDay(col)">
                     <span>{{col}}</span>
                 </button>
             </div>
@@ -36,4 +33,5 @@
     {{event.description}}
     {{event.type}}
 </div>
-<button mat-raised-button color="primary" (click)="openDialog()">Добавить событие2</button>
+<button mat-raised-button color="primary" (click)="openEventDialog()">Добавить событие</button>
+<button mat-raised-button color="primary" (click)="openEventTypeDialog()">Типы событий</button>

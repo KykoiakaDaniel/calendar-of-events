@@ -1,1 +1,31 @@
-<p>event-type-dialog works!</p>
+<button mat-button style="float: right;" (click)="onCloseClick()">
+    <mat-icon mat-list-icon>close</mat-icon>
+</button>
+<mat-list>
+    <h3 mat-subheader>Типы событий</h3>
+    <mat-list-item>
+        <mat-icon mat-list-icon>event_note</mat-icon>
+        <input type="color" value="#ff0000">
+        <p mat-line>Праздник</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon mat-list-icon>remove_circle</mat-icon>
+        <input type="color">
+        <p mat-line>Личное</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon mat-list-icon>remove_circle</mat-icon>
+        <input type="color">
+        <p mat-line>Напоминание</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon mat-list-icon>add_circle</mat-icon>
+        <input matInput placeholder="Новый тип">
+        <input type="color">
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>
+<mat-form-field style="display: none;"> </mat-form-field>

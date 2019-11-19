@@ -17,7 +17,8 @@ import { MatSliderModule,
          MatInputModule,
          MatDatepickerModule,
          MatNativeDateModule,
-         } from '@angular/material';
+         MatListModule,
+         MatDividerModule} from '@angular/material';
 import { EventsDialogComponent } from './events-dialog/events-dialog.component';
 import { EventTypeDialogComponent } from './event-type-dialog/event-type-dialog.component';
 import { DayComponent } from './day/day.component';
@@ -45,10 +46,13 @@ import { DayComponent } from './day/day.component';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
+    MatListModule,
+    MatDividerModule
   ],
   entryComponents: [
-    EventsDialogComponent
+    EventsDialogComponent,
+    EventTypeDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

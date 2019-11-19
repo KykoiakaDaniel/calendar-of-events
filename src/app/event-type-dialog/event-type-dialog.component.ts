@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { EventDataService } from '../services/event-data.service';
 
 @Component({
   selector: 'app-event-type-dialog',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventTypeDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor( private eventDataService: EventDataService, 
+    public dialogRef: MatDialogRef<EventTypeDialogComponent>) {}
 
   ngOnInit() {
   }
 
+  onCloseClick(): void {
+    this.dialogRef.close();
+  }
 }

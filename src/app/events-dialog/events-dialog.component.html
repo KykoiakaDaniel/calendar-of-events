@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Событие</h1>
 <div mat-dialog-content>
     <mat-form-field>
-        <input name="titlee" [(ngModel)]="title" matInput placeholder="Название"> 
+        <input [(ngModel)]="title" matInput placeholder="Название">
     </mat-form-field>
     <div class="error" *ngIf="title.length < 2 || title.length > 10">Поле должно содержать от 2 до 10 символов</div>
     <mat-form-field>
@@ -12,10 +12,10 @@
     </mat-form-field>
     <div class="error" *ngIf="type.length == 0">Выберите тип события</div>
     <mat-form-field>
-        <input [(ngModel)]="description" matInput placeholder="Описание">
+        <textarea [(ngModel)]="description" matInput placeholder="Описание"></textarea>
     </mat-form-field>
     <mat-form-field>
-        <input [(ngModel)]="date" matInput #dp2 [matDatepicker]="dp3" placeholder="Дата" disabled>
+        <input [(ngModel)]="date" matInput [matDatepicker]="dp3" placeholder="Дата" disabled>
         <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
         <mat-datepicker #dp3 disabled="false"></mat-datepicker>
     </mat-form-field>

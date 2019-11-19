@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
-
-export class Event{
-  constructor(public date: string,
-              public time: string,  
-              public title: string, 
-              public description: string,
-              public type: string)
-  { }
-}
+import {Event} from '../classes/event';
+import {Type} from '../classes/type';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +8,13 @@ export class Event{
 export class EventDataService {
 
   private dataEvent: Event[] = [];
+  private dataType: Type[] = [];
 
   constructor() { 
 
   }
   
-  getData(): Event[] {
+  getDataEvent(): Event[] {
     if(this.dataEvent.length == 0){
       for(let i=0; i<localStorage.length; i++) {
         let key = localStorage.key(i);
@@ -43,5 +37,15 @@ export class EventDataService {
       this.dataEvent.splice(index,1);
     }
   }
+
+  // getDataType(): Type[] {
+  //   if(this.dataType.length == 0){
+  //     for(let i=0; i<localStorage.length; i++) {
+  //       let key = localStorage.key(i);
+  //       this.dataEvent.push(JSON.parse(localStorage.getItem(key)))
+  //     }
+  //   }
+  //   return this.dataEvent;
+  // }
 
 }

@@ -1,15 +1,7 @@
 import { Component, OnInit, Inject, Input} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EventDataService } from '../services/event-data.service';
-
-export class Event{
-  constructor(public date: string,
-              public time: string,  
-              public title: string, 
-              public description: string,
-              public type: string)
-  { }
-}
+import {Event} from '../classes/event';
 
 @Component({
   selector: 'app-events-dialog',
@@ -26,11 +18,12 @@ export class EventsDialogComponent implements OnInit {
   private events: Event[] = [];
   private error: boolean;
 
-  constructor(private eventDataService: EventDataService, public dialogRef: MatDialogRef<EventsDialogComponent>,
+  constructor(private eventDataService: EventDataService, 
+              public dialogRef: MatDialogRef<EventsDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Event) {}
 
   ngOnInit() {
-    this.events = this.eventDataService.getData();
+    this.events = this.eventDataService.getDataEvent();
   }
 
 

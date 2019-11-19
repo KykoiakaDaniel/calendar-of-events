@@ -2,22 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {EventDataService} from '../services/event-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import { EventsDialogComponent } from '../events-dialog/events-dialog.component';
+import { EventTypeDialogComponent } from '../event-type-dialog/event-type-dialog.component';
+import {Event} from '../classes/event';
 
 export interface CurrentDate {
   date: number;
   month: number;
   year: number;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////
-export class Event{
-  constructor(public date: string,
-              public time: string,  
-              public title: string, 
-              public description: string,
-              public type: string)
-  { }
-}
-/////////////////////////////////////////////////////////////////////////////////////////////
+
 @Component({
   selector: 'app-month',
   templateUrl: './month.component.html',
@@ -40,7 +33,7 @@ export class MonthComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.events = this.eventDataService.getData();
+    this.events = this.eventDataService.getDataEvent();
     this.displayCalendar();
   }
 
@@ -117,11 +110,19 @@ export class MonthComponent implements OnInit {
     return false;
   }
 
-  public openDialog() {
+  public openEventDialog() {
     const dialogRef = this.dialog.open(EventsDialogComponent, {
       width: '450px',
       //data: new Event("2019-12-08", "10:35", "Novinka", "", "Праздник")
       data: {}
+    });
+  }
+
+  public openEventTypeDialog() {
+    const dialogRef = this.dialog.open(EventTypeDialogComponent, {
+      width: '450px',
+      //data: new Event("2019-12-08", "10:35", "Novinka", "", "Праздник")
+      //data: {}
     });
   }
 }
