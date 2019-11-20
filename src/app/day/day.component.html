@@ -1,1 +1,26 @@
-<p>day works!</p>
+<div class="day-event-list">
+    <div>
+        <button mat-icon-button (click)="changeDay(-1)">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        {{currentDay}}
+        <button mat-icon-button (click)="changeDay(1)">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+    <mat-list>
+        <mat-list-item *ngFor="let hour of hours">
+            <div mat-line>
+                <mat-icon mat-list-icon>access_time</mat-icon>
+                {{hour.hour}}
+                <div *ngIf="hour.events.length">
+                    <div mat-line *ngFor="let event of hour.events">{{event.time}} {{event.title}} </div>
+                </div>
+            </div>
+
+        </mat-list-item>
+    </mat-list>
+</div>
+<button class="butMonth" mat-raised-button color="primary" (click)="openEventDialog()">Добавить событие</button>
+<button class="butMonth" mat-raised-button color="primary" (click)="openEventTypeDialog()">Типы событий</button>
+<button class="butMonth" mat-raised-button color="primary" (click)="openMonthCalendar()">Вернуться на главную</button>

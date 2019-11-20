@@ -26,12 +26,12 @@
         </td>
     </tr>
 </table>
-<div *ngFor="let event of events">
+<!-- <div *ngFor="let event of events">
     {{event.date}}
     {{event.time}}
     {{event.title}}
     {{event.description}}
     {{event.type}}
-</div>
-<button mat-raised-button color="primary" (click)="openEventDialog()">Добавить событие</button>
-<button mat-raised-button color="primary" (click)="openEventTypeDialog()">Типы событий</button>
+</div> -->
+<button class="butMonth" mat-raised-button color="primary" (click)="openEventDialog()">Добавить событие</button>
+<button class="butMonth" mat-raised-button color="primary" (click)="openEventTypeDialog()">Типы событий</button>

@@ -5,6 +5,7 @@ import { EventsDialogComponent } from '../events-dialog/events-dialog.component'
 import { EventTypeDialogComponent } from '../event-type-dialog/event-type-dialog.component';
 import { Event } from '../classes/event';
 import { Type } from '../classes/type';
+import { Router } from '@angular/router';
 
 export interface CurrentDate {
   date: number;
@@ -22,16 +23,12 @@ export class MonthComponent implements OnInit {
   public readonly dayNames = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
   public readonly monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
   public calendar: any[][] = [[]];
-  public todayDate: CurrentDate;
-  public selectedDate: CurrentDate;
-  public openDate: CurrentDate;
+  public todayDate: CurrentDate = MonthComponent.getToday();
+  public openDate: CurrentDate = { ...this.todayDate };
   private events: Event[] = [];
   private types: Type[] = [];
-  constructor(private eventDataService: EventDataService, public dialog: MatDialog) {
-    this.calendar = [];
-    this.todayDate = MonthComponent.getToday();
-    this.openDate = { ...this.todayDate };
-    this.selectedDate = { ...this.todayDate };
+  constructor(private eventDataService: EventDataService, private router: Router, public dialog: MatDialog) {
+
   }
 
   ngOnInit() {
@@ -77,9 +74,9 @@ export class MonthComponent implements OnInit {
   }
 
   public selectDay(day: number) {
-    this.selectedDate.date = day;
-    this.selectedDate.month = this.openDate.month;
-    this.selectedDate.year = this.openDate.year;
+    let newMonth: string = (this.openDate.month < 10) ? `0${this.openDate.month}` : `${this.openDate.month}`;
+    let newDay: string = (day < 10) ? `0${day}` : `${day}`;
+    this.router.navigate(['/day-calendar', `${this.openDate.year}-${newMonth}-${newDay}`]);
   }
 
   public changeMonth(diff: number) {
