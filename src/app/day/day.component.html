@@ -8,18 +8,23 @@
             <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
     </div>
-    <mat-list>
-        <mat-list-item *ngFor="let hour of hours">
-            <div mat-line>
-                <mat-icon mat-list-icon>access_time</mat-icon>
-                {{hour.hour}}
-                <div *ngIf="hour.events.length">
-                    <div mat-line *ngFor="let event of hour.events">{{event.time}} {{event.title}} </div>
-                </div>
+    <div *ngFor="let hour of hours">
+        <div>
+            <mat-icon>access_time</mat-icon>
+            {{hour.hour}}
+        </div>
+        <ng-container *ngIf="hour.events.length">
+            <div class="events" *ngFor="let event of hour.events">
+                <span class="event-dialog" (click)="openCurrentEventDialog(event)">{{event.time}} {{event.title}}</span>
+                <button class="editing-but" mat-button (click)="updateEvent(event)">
+                    <mat-icon>mode_edit</mat-icon>
+                </button>
+                <button class="editing-but" mat-button (click)="removeEvent(event)">
+                    <mat-icon>close</mat-icon>
+                </button>
             </div>
-
-        </mat-list-item>
-    </mat-list>
+        </ng-container>
+    </div>
 </div>
 <button class="butMonth" mat-raised-button color="primary" (click)="openEventDialog()">Добавить событие</button>
 <button class="butMonth" mat-raised-button color="primary" (click)="openEventTypeDialog()">Типы событий</button>

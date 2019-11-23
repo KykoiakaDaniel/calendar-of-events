@@ -1,12 +1,31 @@
-.mat-list-base .mat-subheader, .mat-list-base .mat-list-item{
-    color: black;
-}
-.day-event-list{
-    text-align: center;
+.day-event-list {
     margin: 10px auto;
+    text-align: center;
+    width: 250px;
+
+    .events {
+        background-color: #102c54;
+        color:white;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        border: 2px solid;
+        border-radius: 5px;
+        width: 250px;
+        margin-bottom: 5px;
+
+        .editing-but {
+            min-width: 45px;
+            padding: 0 10px;
+        }
+
+        .event-dialog {
+            cursor: pointer;
+        }
+    }
 }
-.butMonth{
-    width:250px;
+.butMonth {
+    width: 250px;
     display: block;
     margin: 10px auto;
 }

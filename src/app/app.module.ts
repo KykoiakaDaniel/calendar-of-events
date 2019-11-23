@@ -22,6 +22,7 @@ import { MatSliderModule,
 import { EventsDialogComponent } from './events-dialog/events-dialog.component';
 import { EventTypeDialogComponent } from './event-type-dialog/event-type-dialog.component';
 import { DayComponent } from './day/day.component';
+import { CurrentEventDialogComponent } from './current-event-dialog/current-event-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DayComponent } from './day/day.component';
     MonthComponent,
     EventsDialogComponent,
     EventTypeDialogComponent,
-    DayComponent
+    DayComponent,
+    CurrentEventDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { DayComponent } from './day/day.component';
   ],
   entryComponents: [
     EventsDialogComponent,
-    EventTypeDialogComponent
+    EventTypeDialogComponent,
+    CurrentEventDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -113,16 +113,13 @@ export class MonthComponent implements OnInit {
   public openEventDialog() {
     const dialogRef = this.dialog.open(EventsDialogComponent, {
       width: '450px',
-      //data: new Event("2019-12-08", "10:35", "Novinka", "", "Праздник")
       data: {}
     });
   }
 
   public openEventTypeDialog() {
     const dialogRef = this.dialog.open(EventTypeDialogComponent, {
-      width: '450px',
-      //data: new Event("2019-12-08", "10:35", "Novinka", "", "Праздник")
-      //data: {}
+      width: '450px'
     });
   }
 }
