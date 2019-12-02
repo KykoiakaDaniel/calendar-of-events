@@ -1,31 +1,54 @@
 <div class="day-event-list">
+  <div>
+    <button mat-icon-button (click)="changeDay(-1)">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    {{ currentDay }}
+    <button mat-icon-button (click)="changeDay(1)">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+  <div *ngFor="let hour of hours">
     <div>
-        <button mat-icon-button (click)="changeDay(-1)">
-            <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-        {{currentDay}}
-        <button mat-icon-button (click)="changeDay(1)">
-            <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
+      <mat-icon>access_time</mat-icon>
+      {{ hour.hour }}
     </div>
-    <div *ngFor="let hour of hours">
-        <div>
-            <mat-icon>access_time</mat-icon>
-            {{hour.hour}}
-        </div>
-        <ng-container *ngIf="hour.events.length">
-            <div class="events" *ngFor="let event of hour.events">
-                <span class="event-dialog" (click)="openCurrentEventDialog(event)">{{event.time}} {{event.title}}</span>
-                <button class="editing-but" mat-button (click)="updateEvent(event)">
-                    <mat-icon>mode_edit</mat-icon>
-                </button>
-                <button class="editing-but" mat-button (click)="removeEvent(event)">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </ng-container>
-    </div>
+    <ng-container *ngIf="hour.events.length">
+      <div class="events" *ngFor="let event of hour.events">
+        <span class="event-dialog" (click)="openCurrentEventDialog(event)"
+          >{{ event.time }} {{ event.title }}</span
+        >
+        <button class="editing-but" mat-button (click)="updateEvent(event)">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+        <button class="editing-but" mat-button (click)="removeEvent(event)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+  </div>
 </div>
-<button class="butMonth" mat-raised-button color="primary" (click)="openEventDialog()">Добавить событие</button>
-<button class="butMonth" mat-raised-button color="primary" (click)="openEventTypeDialog()">Типы событий</button>
-<button class="butMonth" mat-raised-button color="primary" (click)="openMonthCalendar()">Вернуться на главную</button>
+<button
+  class="butMonth"
+  mat-raised-button
+  color="primary"
+  (click)="openEventDialog()"
+>
+  Добавить событие
+</button>
+<button
+  class="butMonth"
+  mat-raised-button
+  color="primary"
+  (click)="openEventTypeDialog()"
+>
+  Типы событий
+</button>
+<button
+  class="butMonth"
+  mat-raised-button
+  color="primary"
+  (click)="openMonthCalendar()"
+>
+  Вернуться на главную
+</button>

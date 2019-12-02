@@ -1,16 +1,13 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
+<h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
-    <div class="event-content">
-        {{data.date}} {{data.time}}
-    </div>
-    <div class="event-content">
-        {{data.type}}
-    </div>
-    <div class="event-content">
-        {{data.description}}
-    </div>
-
+  <div class="event-content">{{ data.date }} {{ data.time }}</div>
+  <div class="event-content">
+    {{ data.type }}
+  </div>
+  <div class="event-content">
+    {{ data.description }}
+  </div>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Выйти</button>
+  <button mat-button (click)="onNoClick()">Выйти</button>
 </div>

@@ -1,83 +1,109 @@
-import { Injectable } from '@angular/core';
-import { Event } from '../classes/event';
-import { Type } from '../classes/type';
+import { Injectable } from "@angular/core";
+import { Event } from "../classes/event";
+import { Type } from "../classes/type";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class EventDataService {
+  private dataEvents: Event[] = [];
+  private dataTypes: Type[] = [];
 
-  private dataEvent: Event[] = [];
-  private dataType: Type[] = [];
-
-  constructor() {
-    
-  }
+  constructor() {}
 
   getDataEvent(): Event[] {
-    if (this.dataEvent.length == 0) {
+    if (this.dataEvents.length === 0) {
       for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
         if (!key.startsWith(`type-`)) {
-          this.dataEvent.push(JSON.parse(localStorage.getItem(key)))
+          this.dataEvents.push(JSON.parse(localStorage.getItem(key)));
         }
       }
     }
-    return this.dataEvent;
+    return this.dataEvents;
   }
 
-  addEvent(date: string, time: string, title: string, description: string, type: string) {
-    let newEvent = new Event(date, time, title, description, type);
+  addEvent(
+    date: string,
+    time: string,
+    title: string,
+    description: string,
+    type: string
+  ) {
+    const newEvent = new Event(date, time, title, description, type);
     localStorage.setItem(`${date}|${time}`, JSON.stringify(newEvent));
-    this.dataEvent.push(newEvent);
+    this.dataEvents.push(newEvent);
   }
 
   removeEvent(date: string, time: string) {
     localStorage.removeItem(`${date}|${time}`);
-    let index = this.dataEvent.findIndex(item => item.date == date && item.time == time);
+    let index = this.dataEvents.findIndex(
+      item => item.date === date && item.time === time
+    );
     if (index >= 0) {
-      this.dataEvent.splice(index, 1);
+      this.dataEvents.splice(index, 1);
     }
   }
 
   getDataType(): Type[] {
-    if (this.dataType.length == 0) {
+    if (this.dataTypes.length === 0) {
       for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
         if (key.startsWith(`type-`)) {
-          this.dataType.push(JSON.parse(localStorage.getItem(key)))
+          this.dataTypes.push(JSON.parse(localStorage.getItem(key)));
         }
       }
     }
-    if (this.dataType.length == 0) {
-      localStorage.setItem(`type-Праздник`, JSON.stringify(new Type(`Праздник`, `#ff0000`)));
-      localStorage.setItem(`type-Личное`, JSON.stringify(new Type(`Личное`, `#00ff00`)));
-      localStorage.setItem(`type-Напоминание`, JSON.stringify(new Type(`Напоминание`, `#0000ff`)));
-      this.dataType.push(JSON.parse(localStorage.getItem(`type-Праздник`)));
-      this.dataType.push(JSON.parse(localStorage.getItem(`type-Личное`)));
-      this.dataType.push(JSON.parse(localStorage.getItem(`type-Напоминание`)));
+    if (this.dataTypes.length === 0) {
+      const standardTypes: Type[] = [
+        new Type(`Праздник`, `#ff0000`),
+        new Type(`Личное`, `#00ff00`),
+        new Type(`Напоминание`, `#0000ff`)
+      ];
+      for (let i = 0; i < standardTypes.length; i++) {
+        let keyType = this.getKeyType(standardTypes[i].type);
+        localStorage.setItem(keyType, JSON.stringify(standardTypes[i]));
+        this.dataTypes.push(JSON.parse(localStorage.getItem(keyType)));
+      }
     }
     this.sortType();
-    return this.dataType;
+    return this.dataTypes;
   }
 
   addType(type: string, color: string) {
-    let newType = new Type(type, color);
-    if (localStorage.getItem(`type-${type}`)) {
-      let index = this.dataType.findIndex(item => item.type == type);
+    const newType = new Type(type, color);
+    const key = this.getKeyType(type);
+    if (localStorage.getItem(key)) {
+      let index = this.dataTypes.findIndex(item => item.type === type);
       if (index >= 0) {
-        this.dataType.splice(index, 1);
+        this.dataTypes.splice(index, 1);
       }
     }
-    localStorage.setItem(`type-${type}`, JSON.stringify(newType));
-    this.dataType.push(newType);
+    localStorage.setItem(key, JSON.stringify(newType));
+    this.dataTypes.push(newType);
     this.sortType();
   }
 
-  sortType(){
-    this.dataType.sort((prev, next) => {
+  sortType() {
+    this.dataTypes.sort((prev, next) => {
       if (prev.type < next.type) return -1;
       if (prev.type > next.type) return 1;
     });
+  }
+
+  getKeyType(word: string): string {
+    let key: string = "";
+    for (let i = 0; i < word.length; i++) {
+      key += word.charCodeAt(i) + "/";
+    }
+    return `type-${key}`;
+  }
+
+  formattingOfTheDate(date: Date): string {
+    const Month = date.getMonth() + 1;
+    const Day = date.getDate();
+    const newMonth: string = Month < 10 ? `0${Month}` : "" + Month;
+    const newDay: string = Day < 10 ? `0${Day}` : "" + Day;
+    return `${date.getFullYear()}-${newMonth}-${newDay}`;
   }
 }

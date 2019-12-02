@@ -1,21 +1,33 @@
 <button mat-button style="float: right;" (click)="onCloseClick()">
-    <mat-icon mat-list-icon>close</mat-icon>
+  <mat-icon mat-list-icon>close</mat-icon>
 </button>
 <mat-list>
-    <h3 mat-subheader>Типы событий</h3>
-    <mat-list-item *ngFor="let type of types">
-        <mat-icon mat-list-icon>event_note</mat-icon>
-        <input type="color" [(ngModel)]="type.color" (ngModelChange)="onColorChange(type.type, type.color)">
-        <p mat-line>{{type.type}}</p>
-        <mat-divider></mat-divider>
-    </mat-list-item>
-    <mat-list-item>
-        <button mat-icon-button (click)="onAddClick()"><mat-icon mat-list-icon>add_circle</mat-icon></button>
-        <input matInput placeholder="Новый тип" [(ngModel)]="newType">
-        <input type="color" [(ngModel)]="newColor">
-    </mat-list-item>
+  <h3 mat-subheader>Типы событий</h3>
+  <mat-list-item *ngFor="let type of types">
+    <mat-icon mat-list-icon>event_note</mat-icon>
+    <input
+      type="color"
+      [(ngModel)]="type.color"
+      (ngModelChange)="onColorChange(type.type, type.color)"
+    />
+    <p mat-line>{{ type.type }}</p>
     <mat-divider></mat-divider>
-    <div class="error" *ngIf="errorCount">Название события должно содержать от 1 до 15 символов</div>
-    <div class="error" *ngIf="errorExistence">Такое событие уже существует</div>
+  </mat-list-item>
+  <mat-list-item>
+    <button mat-icon-button (click)="onAddClick()">
+      <mat-icon mat-list-icon>add_circle</mat-icon>
+    </button>
+    <input matInput placeholder="Новый тип" [(ngModel)]="newType" />
+    <input type="color" [(ngModel)]="newColor" />
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <div class="error" *ngIf="errorCountOfLetters">
+    Название события должно содержать от 1 до 15 символов
+  </div>
+  <div class="error" *ngIf="errorExistence">
+    Такое событие уже существует
+  </div>
 </mat-list>
-<mat-form-field style="display: none;"><input matInput placeholder="Новый тип"> </mat-form-field>
+<mat-form-field style="display: none;"
+  ><input matInput placeholder="Новый тип" />
+</mat-form-field>
